@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A modern personal finance manager for tracking income, expenses and budgets.">
+  <title>Moneta — Personal Finance Manager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css"><script src="app.js" defer></script>
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <a class="brand" href="#top"><span class="brand-icon">M</span><span>moneta<small>PERSONAL FINANCE</small></span></a>
+    <div class="nav-caption">WORKSPACE</div>
+    <a class="nav-link active" href="#overview"><span>▦</span> Overview</a>
+    <a class="nav-link" href="#transactions"><span>↕</span> Transactions</a>
+    <a class="nav-link" href="#insights"><span>◒</span> Insights</a>
+    <a class="nav-link" href="#budget"><span>◎</span> Budget planner</a>
+    <div class="sidebar-spacer"></div>
+    <div class="side-tip"><span>✦</span><strong>Build better money habits.</strong><p>Small steps today create more confident decisions tomorrow.</p></div>
+    <div class="user-profile"><div class="user-avatar">PM</div><div><strong>Personal workspace</strong><small>Local demo account</small></div><span class="profile-dot"></span></div>
+  </aside>
+  <main class="main-content" id="top">
+    <header class="topbar"><div><div class="eyebrow">MONDAY? NO — JUST YOUR MONEY, CLEARLY</div><h1>Good to see you<span class="heading-period">.</span></h1><p class="subtitle">Your personal finance command centre.</p></div><div class="top-actions"><span class="date-chip" id="todayLabel">Today</span><span class="connection"><i></i> Saved on this device</span></div></header>
+    <section class="hero-card" id="overview">
+      <div class="hero-copy"><span class="hero-label">TOTAL BALANCE</span><div class="hero-amount" id="balanceAmount">₹0.00</div><p>Income minus expenses across all recorded transactions</p><div class="hero-pills"><span>↗ <b id="heroIncome">₹0</b> income</span><span>↘ <b id="heroExpense">₹0</b> spent</span></div></div>
+      <div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="art-card"><span>NET POSITION</span><strong>₹</strong><small>Track · Plan · Grow</small></div><div class="art-spark spark-one">✦</div><div class="art-spark spark-two">＋</div></div>
+    </section>
+    <section class="metric-grid">
+      <article class="metric-card"><div class="metric-top"><span>Income received</span><span class="metric-icon income-icon">↗</span></div><strong id="incomeAmount">₹0.00</strong><small><i class="positive-dot"></i> All-time income</small></article>
+      <article class="metric-card"><div class="metric-top"><span>Total expenses</span><span class="metric-icon expense-icon">↘</span></div><strong id="expenseAmount">₹0.00</strong><small><i class="negative-dot"></i> All-time spending</small></article>
+      <article class="metric-card"><div class="metric-top"><span>Transactions</span><span class="metric-icon count-icon">⌁</span></div><strong id="transactionCount">0</strong><small>All recorded entries</small></article>
+      <article class="metric-card"><div class="metric-top"><span>Top spending category</span><span class="metric-icon category-icon">◈</span></div><strong class="category-metric" id="topCategory">—</strong><small>Based on expenses</small></article>
+    </section>
+    <section class="main-grid">
+      <article class="panel form-panel" id="addTransaction">
+        <div class="panel-heading"><div><span class="eyebrow">QUICK ACTION</span><h2>Add transaction</h2></div><span class="heading-icon">＋</span></div>
+        <form id="transactionForm">
+          <div class="type-switch"><label class="type-option selected" id="expenseTypeLabel"><input type="radio" name="type" value="Expense" checked><span>↘</span> Expense</label><label class="type-option" id="incomeTypeLabel"><input type="radio" name="type" value="Income"><span>↗</span> Income</label></div>
+          <label for="title">Transaction name</label><input id="title" name="title" type="text" placeholder="e.g. Monthly allowance" maxlength="70" required>
+          <div class="field-row"><div><label for="amount">Amount (₹)</label><div class="amount-input"><span>₹</span><input id="amount" name="amount" type="number" min="0.01" step="0.01" placeholder="0.00" required></div></div><div><label for="date">Date</label><input id="date" name="date" type="date" required></div></div>
+          <div class="field-row"><div><label for="category">Category</label><select id="category" name="category"><option>Food</option><option>Travel</option><option>Shopping</option><option>Education</option><option>Bills</option><option>Health</option><option>Entertainment</option><option>Salary</option><option>Freelance</option><option>Gift</option><option>Other</option></select></div><div><label for="payment">Payment method</label><select id="payment" name="payment"><option>UPI</option><option>Cash</option><option>Card</option><option>Net Banking</option><option>Bank Transfer</option></select></div></div>
+          <button class="primary-button" id="submitButton" type="submit">Save expense <span>→</span></button><p class="form-message" id="formMessage" aria-live="polite"></p>
+        </form>
+      </article>
+      <article class="panel trend-panel" id="insights">
+        <div class="panel-heading"><div><span class="eyebrow">YOUR FINANCIAL PULSE</span><h2>Monthly cash flow</h2></div><select class="year-select" id="trendYear" aria-label="Chart year"></select></div>
+        <div class="chart-legend"><span><i class="legend-income"></i> Income</span><span><i class="legend-expense"></i> Expenses</span></div>
+        <div class="bar-chart" id="monthlyChart"><div class="chart-empty">Add transactions to see your cash flow.</div></div>
+        <div class="chart-foot"><span>Last 6 months</span><strong id="chartInsight">Your activity will appear here</strong></div>
+      </article>
+    </section>
+    <section class="lower-grid">
+      <article class="panel category-panel"><div class="panel-heading"><div><span class="eyebrow">WHERE IT GOES</span><h2>Spending by category</h2></div><span class="subtle-icon">◉</span></div><div id="categoryBreakdown" class="category-list"><div class="empty-state">No spending data yet.</div></div><div class="category-total"><span>Total spent</span><strong id="breakdownTotal">₹0.00</strong></div></article>
+      <article class="panel budget-panel" id="budget"><div class="panel-heading"><div><span class="eyebrow">STAY ON TRACK</span><h2>Monthly budget</h2></div><span class="subtle-icon">◎</span></div><div class="budget-input-row"><label for="budgetAmount">Set your spending limit</label><div class="budget-edit"><span>₹</span><input id="budgetAmount" type="number" min="0" step="100" placeholder="e.g. 15000"><button id="saveBudget" type="button">Save</button></div></div><div class="budget-numbers"><div><small>Spent this month</small><strong id="budgetSpent">₹0</strong></div><div class="budget-remaining"><small>Remaining</small><strong id="budgetRemaining">—</strong></div></div><div class="budget-track"><div id="budgetProgress" class="budget-fill"></div></div><p id="budgetMessage" class="budget-message">Set a monthly budget to start tracking your progress.</p></article>
+    </section>
+    <section class="panel transactions-panel" id="transactions">
+      <div class="transactions-top"><div><span class="eyebrow">ALL YOUR ACTIVITY</span><h2>Transactions</h2><p>Search, filter and manage your money records.</p></div><button id="exportButton" class="export-button" type="button">⇩ Export CSV</button></div>
+      <div class="filters"><div class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Search transactions..."></div><select id="typeFilter"><option value="All">All types</option><option>Expense</option><option>Income</option></select><select id="categoryFilter"><option value="All">All categories</option><option>Food</option><option>Travel</option><option>Shopping</option><option>Education</option><option>Bills</option><option>Health</option><option>Entertainment</option><option>Salary</option><option>Freelance</option><option>Gift</option><option>Other</option></select><input id="monthFilter" type="month" aria-label="Filter by month"></div>
+      <div class="table-wrap"><table><thead><tr><th>TRANSACTION</th><th>TYPE</th><th>CATEGORY</th><th>DATE</th><th>PAYMENT</th><th class="amount-cell">AMOUNT</th><th></th></tr></thead><tbody id="transactionRows"><tr><td colspan="7" class="empty-row">Loading transactions…</td></tr></tbody></table></div>
+      <div class="table-footer"><span id="showingCount">Showing 0 transactions</span><span>All amounts in Indian Rupees (INR)</span></div>
+    </section>
+    <footer>MONETA · Personal Finance Manager <span>Built with HTML · CSS · JavaScript · Core Java OOP</span></footer>
+  </main>
+</div>
+<div class="toast" id="toast" role="status"></div>
+</body></html>
